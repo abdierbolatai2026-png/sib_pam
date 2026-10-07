@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>Вводный инструктаж · Служба информационной безопасности</title>
+<style>
+:root{
+  --paper:#f2f4f6; --card:#ffffff; --ink:#14202b; --muted:#506070;
+  --steel:#1f4e79; --steel-d:#163a5a; --line:#c9d1d9; --signal:#b4232a; --ok:#1d6b45;
+  --serif:Georgia,"Times New Roman","PT Serif",serif;
+  --sans:"Segoe UI","Helvetica Neue",Arial,"PT Sans",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f171f; --card:#17222d; --ink:#e6ebf0; --muted:#9aa9b8;
+    --steel:#6fa6d6; --steel-d:#1b3248; --line:#2b3a49; --signal:#ff7b80; --ok:#5fcf97;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+a{color:var(--steel)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+
+/* Верхняя панель */
+.bar{position:sticky;top:0;z-index:5;background:var(--steel-d);color:#fff}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.25rem;flex-wrap:wrap}
+.bar strong{font-size:.95rem;font-weight:600}
+.bar nav{display:flex;gap:1.1rem;flex-wrap:wrap}
+.bar nav a{color:#dbe7f3;text-decoration:none;font-size:.9rem;padding:.25rem 0;border-bottom:2px solid transparent}
+.bar nav a:hover{border-bottom-color:#fff;color:#fff}
+
+/* Заголовок */
+.hero{padding:2.75rem 0 2rem;border-bottom:1px solid var(--line)}
+.hero h1{font:700 clamp(1.7rem,4.5vw,2.6rem)/1.15 var(--serif);margin:0 0 .75rem;max-width:22ch}
+.hero p{margin:0;max-width:62ch;color:var(--muted)}
+.budget{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;padding:0;list-style:none}
+.budget li{background:var(--card);border:1px solid var(--line);padding:.35rem .75rem;font-size:.88rem}
+.budget b{color:var(--steel)}
+
+section{padding:2.5rem 0;border-bottom:1px solid var(--line)}
+h2{font:700 1.5rem/1.25 var(--serif);margin:0 0 .35rem}
+.lead{margin:0 0 1.5rem;color:var(--muted);max-width:65ch}
+
+/* Блок 1 */
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.panel{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--steel);padding:1rem 1.15rem}
+.panel h3{margin:0 0 .4rem;font-size:1.02rem}
+.panel p,.panel ul{margin:0;font-size:.95rem}
+.panel ul{padding-left:1.1rem}
+.doc{display:inline-block;margin-top:1.25rem;padding:.6rem 1rem;border:1px solid var(--steel);font-weight:600;text-decoration:none}
+.doc:hover{background:var(--steel);color:#fff}
+.note{margin-top:.75rem;font-size:.85rem;color:var(--muted)}
+
+/* Блок 2: алгоритм */
+.alert{border:1px solid var(--signal);border-left-width:4px;background:var(--card);padding:.8rem 1rem;margin:0 0 1.5rem;font-size:.95rem}
+.alert b{color:var(--signal)}
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s;grid-template-columns:repeat(5,1fr)}
+.flow li{counter-increment:s;position:relative;background:var(--card);border:1px solid var(--line);margin-left:-1px;padding:1rem .9rem 1rem}
+.flow li::before{content:counter(s);display:grid;place-items:center;width:2rem;height:2rem;background:var(--steel-d);color:#fff;font-weight:700;margin-bottom:.6rem}
+.flow li:last-child::before{background:var(--signal)}
+.flow h3{margin:0 0 .5rem;font:700 1.05rem var(--serif)}
+.flow ul{margin:0;padding-left:1rem;font-size:.88rem;color:var(--muted)}
+.flow li li{margin-bottom:.25rem}
+.sla{display:block;margin-top:.7rem;font-size:.8rem;font-weight:600;color:var(--steel)}
+
+/* Блок 3: чек-лист */
+.progress{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.track{flex:1;height:.6rem;background:var(--line)}
+.track i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+#pct{font-weight:600;min-width:6.5rem;text-align:right;font-size:.9rem}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.check label{display:flex;gap:.8rem;align-items:flex-start;background:var(--card);border:1px solid var(--line);padding:.8rem 1rem;cursor:pointer}
+.check input{width:1.2rem;height:1.2rem;margin-top:.2rem;accent-color:var(--ok);flex:none}
+.check input:checked + span{color:var(--muted)}
+.check input:checked + span b{text-decoration:line-through}
+.check b{display:block}
+.check small{color:var(--muted);font-size:.88rem}
+#done{display:none;margin-top:1rem;padding:.8rem 1rem;border:1px solid var(--ok);color:var(--ok);font-weight:600}
+
+/* Блок 4: контакты */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);min-width:36rem}
+th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--line);vertical-align:top;font-size:.95rem}
+th{background:var(--steel-d);color:#fff;font-weight:600;font-size:.88rem}
+td:first-child{font-weight:600}
+.ph{font-family:Consolas,"Courier New",monospace;font-size:.9rem}
+
+footer{padding:1.75rem 0 3rem;font-size:.85rem;color:var(--muted)}
+footer p{margin:.2rem 0}
+
+@media (max-width:60rem){
+  .flow{grid-template-columns:1fr}
+  .flow li{margin:-1px 0 0;display:grid;grid-template-columns:2.5rem 1fr;column-gap:.8rem}
+  .flow li::before{grid-row:1 / span 3}
+}
+@media (max-width:40rem){
+  .bar nav{display:none}
+  .hero{padding-top:2rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.track i{transition:none}}
+@media print{.bar{display:none}body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <strong>Служба информационной безопасности</strong>
+    <nav aria-label="Разделы страницы">
+      <a href="#intro">Инструктаж</a>
+      <a href="#incident">Реагирование</a>
+      <a href="#hygiene">Чек-лист</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Вводный инструктаж для новых сотрудников службы ИБ</h1>
+    <p>Страница знакомит с ключевыми регламентами службы за 15 минут. После прохождения вы знаете, зачем работает служба, что делать при инциденте и к кому обратиться.</p>
+    <ul class="budget" aria-label="План прохождения">
+      <li><b>3 мин</b> принципы и ответственность</li>
+      <li><b>6 мин</b> алгоритм реагирования</li>
+      <li><b>4 мин</b> чек-лист гигиены</li>
+      <li><b>2 мин</b> контакты</li>
+    </ul>
+  </div>
+
+  <section id="intro">
+    <h2>Добро пожаловать в службу ИБ</h2>
+    <p class="lead">Служба защищает информационные активы организации и обеспечивает непрерывность работы бизнеса. Вы получаете доступ к чувствительным данным, поэтому ответственность возникает с первого рабочего дня.</p>
+    <div class="grid">
+      <div class="panel">
+        <h3>Цели службы</h3>
+        <ul>
+          <li>Конфиденциальность, целостность и доступность данных</li>
+          <li>Своевременное выявление и устранение инцидентов</li>
+          <li>Соответствие требованиям законодательства и стандартов</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Принципы конфиденциальности</h3>
+        <ul>
+          <li>Минимальные необходимые привилегии</li>
+          <li>Данные раскрываются только по служебной необходимости</li>
+          <li>Сведения об инцидентах не передаются вне установленных каналов</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Ответственность</h3>
+        <ul>
+          <li>Нарушение регламентов влечёт ответственность по закону и внутренним актам</li>
+          <li>Обязательство о неразглашении действует и после увольнения</li>
+          <li>О подозрении на нарушение сообщайте сразу</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Замените href на внутреннюю ссылку документа в системе электронного документооборота -->
+    <a class="doc" href="#" id="policy-link">Открыть Политику информационной безопасности</a>
+    <p class="note">Ссылка ведёт на актуальную редакцию в корпоративной системе документооборота. Работайте только с версией из этого источника.</p>
+  </section>
+
+  <section id="incident">
+    <h2>Пять этапов реагирования на инцидент</h2>
+    <p class="lead">Действуйте строго по порядку. Не пропускайте этапы, даже если причина кажется очевидной.</p>
+    <p class="alert"><b>Вымогательство или утечка.</b> Не вступайте в переговоры, не отвечайте нарушителю и не платите. Сразу переходите к этапу 1 и поставьте в известность дежурного специалиста.</p>
+
+    <ol class="flow">
+      <li>
+        <h3>Фиксация</h3>
+        <ul>
+          <li>Время, источник и признаки угрозы</li>
+          <li>Скриншоты, журналы, номера затронутых систем</li>
+          <li>Регистрация обращения в системе учёта инцидентов</li>
+        </ul>
+        <span class="sla">Сразу при обнаружении</span>
+      </li>
+      <li>
+        <h3>Локализация</h3>
+        <ul>
+          <li>Изоляция хоста или сегмента от сети</li>
+          <li>Блокировка скомпрометированной учётной записи</li>
+          <li>Не выключайте устройство и не удаляйте следы</li>
+        </ul>
+        <span class="sla">В пределах установленного времени реакции</span>
+      </li>
+      <li>
+        <h3>Анализ</h3>
+        <ul>
+          <li>Определение критичности и вектора атаки</li>
+          <li>Перечень затронутых данных и систем</li>
+          <li>Сохранение артефактов для расследования</li>
+        </ul>
+        <span class="sla">По классу критичности</span>
+      </li>
+      <li>
+        <h3>Устранение</h3>
+        <ul>
+          <li>Удаление угрозы и закрытие уязвимости</li>
+          <li>Смена скомпрометированных паролей и ключей</li>
+          <li>Восстановление из проверенных копий</li>
+        </ul>
+        <span class="sla">После согласования с руководителем службы</span>
+      </li>
+      <li>
+        <h3>Отчётность</h3>
+        <ul>
+          <li>Итоговый отчёт и извлечённые уроки</li>
+          <li>Уведомление руководства</li>
+          <li>Уведомление регулятора и субъектов данных, если это требует закон</li>
+        </ul>
+        <span class="sla">В сроки, указанные в регламенте</span>
+      </li>
+    </ol>
+    <p class="note">Конкретные сроки и классы критичности указаны в Регламенте реагирования на инциденты ИБ.</p>
+  </section>
+
+  <section id="hygiene">
+    <h2>Чек-лист гигиены ИБ</h2>
+    <p class="lead">Выполните пункты в первую рабочую неделю. Отметки остаются только на этой странице и не сохраняются.</p>
+
+    <div class="progress">
+      <div class="track" role="progressbar" aria-label="Выполнено пунктов" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="fill"></i></div>
+      <span id="pct" aria-live="polite">0 из 6</span>
+    </div>
+
+    <ul class="check" id="list">
+      <li><label><input type="checkbox"><span><b>Включить многофакторную аутентификацию (MFA)</b><small>На корпоративной почте, VPN и административных консолях.</small></span></label></li>
+      <li><label><input type="checkbox"><span><b>Проверить выданные права доступа</b><small>Сверьте со своей должностью, лишние права запросите на отзыв.</small></span></label></li>
+      <li><label><input type="checkbox"><span><b>Заменить начальные пароли</b><small>Уникальный пароль по требованиям парольной политики. Храните только в утверждённом менеджере паролей.</small></span></label></li>
+      <li><label><input type="checkbox"><span><b>Убедиться, что ведётся журналирование</b><small>Ваши действия в системах фиксируются, отключать журналы запрещено.</small></span></label></li>
+      <li><label><input type="checkbox"><span><b>Обновить рабочую станцию</b><small>Актуальные обновления ОС, включённые антивирус и шифрование диска.</small></span></label></li>
+      <li><label><input type="checkbox"><span><b>Пройти тест на распознавание фишинга</b><small>Сообщайте о подозрительных письмах через кнопку или на адрес службы.</small></span></label></li>
+    </ul>
+    <div id="done" role="status">Чек-лист выполнен. Сообщите наставнику, чтобы закрыть инструктаж.</div>
+  </section>
+
+  <section id="contacts">
+    <h2>Контакты службы и наставника</h2>
+    <p class="lead">Используйте только служебные каналы. Значения в квадратных скобках замените реквизитами вашей организации.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Канал</th><th scope="col">Реквизиты</th><th scope="col">Когда использовать</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Корпоративная почта службы ИБ</td><td class="ph">[ib@домен-организации]</td><td>Плановые вопросы, запросы доступа, фишинговые письма</td></tr>
+          <tr><td>HelpDesk ИБ</td><td class="ph">[внутренний номер]</td><td>Срочные обращения в рабочее время</td></tr>
+          <tr><td>Дежурный специалист ИБ</td><td class="ph">[внутренний номер дежурной смены]</td><td>Инциденты вне рабочего времени, вымогательство, утечка</td></tr>
+          <tr><td>Наставник</td><td>Должностной адрес: <span class="ph">[mentor-ib@домен-организации]</span></td><td>Вопросы по адаптации, регламентам и доступам</td></tr>
+          <tr><td>Руководитель службы ИБ</td><td class="ph">[должностной адрес руководителя]</td><td>Эскалация критичных инцидентов</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Контакты указаны по должностям и ролям, без личных данных работников.</p>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Для внутреннего использования.</b> Размещается только во внутреннем контуре (Intranet), доступ по корпоративной учётной записи.</p>
+    <p>Страница не использует внешние ресурсы, шрифты, счётчики и сторонние скрипты. Версия: [номер] · Ответственный за актуализацию: [должность]</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var boxes=document.querySelectorAll('#list input');
+  var fill=document.getElementById('fill'),bar=document.getElementById('bar');
+  var pct=document.getElementById('pct'),done=document.getElementById('done');
+  function update(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    var p=Math.round(n/boxes.length*100);
+    fill.style.width=p+'%';bar.setAttribute('aria-valuenow',p);
+    pct.textContent=n+' из '+boxes.length;
+    done.style.display=n===boxes.length?'block':'none';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',update);});
+  document.getElementById('policy-link').addEventListener('click',function(e){
+    if(this.getAttribute('href')==='#'){e.preventDefault();}
+  });
+})();
+</script>
+</body>
+</html>
